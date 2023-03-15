@@ -176,4 +176,29 @@ export class ListsKlaviyoApi {
       throw new KlaviyoError(res);
     }
   }
+
+  // See https://a.klaviyo.com/api/v2/list/{list_id}/subscribe for details
+  public async subscribe(
+    listId: string,
+    profiles: Partial<{ email: string; phone_number: string; sms_consent: boolean }>,
+  ): Promise<void> {
+    const url = `https://a.klaviyo.com/api/v2/list/${listId}/subscribe`;
+
+    const res: Response = await fetch(url, {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({ api_key: this.apiKey, profiles }),
+    });
+
+    if (res.ok) {
+      return;
+    } else if (res.status === 429) {
+      await waitForRetry(res);
+      return await this.subscribe(listId, profiles);
+    } else {
+      throw new KlaviyoError(res);
+    }
+  }
 }
