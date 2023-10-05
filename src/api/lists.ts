@@ -201,4 +201,33 @@ export class ListsKlaviyoApi {
       throw new KlaviyoError(res);
     }
   }
+
+  // See https://developers.klaviyo.com/en/v1-2/docs/how-to-set-up-custom-back-in-stock for details
+  public async subscribeToBackInStock(
+    variantId: string,
+    profile: { email: string } & Partial<{ phone_number: string; sms_consent: boolean }>,
+  ): Promise<void> {
+    const url = `https://a.klaviyo.com/onsite/components/back-in-stock/subscribe`;
+
+    const res: Response = await fetch(url, {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: profile.email,
+        variant: variantId,
+        platform: 'shopify',
+      }),
+    });
+
+    if (res.ok) {
+      return;
+    } else if (res.status === 429) {
+      await waitForRetry(res);
+      return await this.subscribeToBackInStock(variantId, profile);
+    } else {
+      throw new KlaviyoError(res);
+    }
+  }
 }
