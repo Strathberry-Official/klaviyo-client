@@ -1,6 +1,6 @@
 import { KlaviyoError, KlaviyoProfile, KlaviyoEvent, KlaviyoIdentifierType } from '..';
 import { waitForRetry } from '../utils/wait-for-retry';
-import fetch from 'cross-fetch';
+// import fetch from 'cross-fetch';
 
 interface PersonEventsResponse<TP extends Record<string, unknown>, TE extends Record<string, unknown>> {
   count: number;

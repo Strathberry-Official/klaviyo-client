@@ -1,6 +1,6 @@
 {
   "name": "@strathberry/klaviyo-client",
-  "version": "1.0.3",
+  "version": "1.0.3-hydrogen",
   "description": "(Fork) Klaviyo API client for Node.js and browser",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -52,7 +52,7 @@
     }
   },
   "dependencies": {
-    "cross-fetch": "^3.0.6",
+    "cross-fetch": "^4.0.0",
     "js-base64": "^3.6.0"
   }
 }

@@ -7,7 +7,7 @@ import {
   KlaviyoProfileIdentifier,
 } from '..';
 import { waitForRetry } from '../utils/wait-for-retry';
-import fetch from 'cross-fetch';
+// import fetch from 'cross-fetch';
 
 type GroupMembersResponse = {
   marker: number;
